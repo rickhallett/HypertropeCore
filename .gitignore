@@ -1,0 +1,11 @@
+bin/
+obj/
+/packages/
+.idea/.gitignore
+.idea/.idea.HypertropeCore/.idea/contentModel.xml
+.idea/.idea.HypertropeCore/.idea/encodings.xml
+.idea/.idea.HypertropeCore/.idea/indexLayout.xml
+.idea/.idea.HypertropeCore/.idea/modules.xml
+.idea/.idea.HypertropeCore/.idea/projectSettingsUpdater.xml
+.idea/.idea.HypertropeCore/.idea/vcs.xml
+.idea/.idea.HypertropeCore/riderModule.iml
