@@ -9,5 +9,12 @@
             public const string Create = Base + "/workout";
             public const string ShowAll = Base + "/workout";
         }
+
+        public static class Exercises
+        {
+            private const string Base = "api";
+
+            public const string ShowAll = Base + "exercises";
+        }
     }
 }
