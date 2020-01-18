@@ -1,10 +1,8 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace HypertropeCore.Models
+namespace HypertropeCore.Contracts.V1.Response
 {
-    public class Set
+    public class SetResponse
     {
         public Guid SetId { get; set; }
         public string Exercise { get; set; }
@@ -12,8 +10,5 @@ namespace HypertropeCore.Models
         public int Reps { get; set; }
         public int Volume { get; set; }
         public double OneRm { get; set; }
-        
-        [ForeignKey(nameof(Models.Workout.WorkoutId))]
-        public Workout Workout { get; set; }
     }
 }

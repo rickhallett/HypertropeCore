@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using HypertropeCore.Models;
 
-namespace HypertropeCore.Models
+namespace HypertropeCore.Contracts.V1.Response
 {
-    public class Workout
+    public class WorkoutResponse
     {
         public Guid WorkoutId { get; set; }
         public DateTime Created { get; set; }
-        public List<Set> Sets { get; set; }
+        public List<SetResponse> Sets { get; set; }
         public int TotalVolume { get; set; }
         public double AverageOneRm { get; set; }
         public double RickFactor { get; set; }

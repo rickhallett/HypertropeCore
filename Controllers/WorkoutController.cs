@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using HypertropeCore.Context;
 using HypertropeCore.Contracts.V1.Request;
 using HypertropeCore.Contracts.V1.Response;
 using HypertropeCore.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace HypertropeCore.Controllers
 {
@@ -54,7 +51,36 @@ namespace HypertropeCore.Controllers
         [HttpGet(ApiRoutes.Workouts.ShowAll)]
         public IActionResult ShowWorkouts()
         {
-            return new JsonResult(new {Route = "ShowWorkouts"});
+            var allDbWorkouts = _context.Workouts.ToList();
+            var allResponseWorkouts = new List<WorkoutResponse>();
+
+            foreach (var dbwo in allDbWorkouts)
+            {
+                var workoutResponse = new WorkoutResponse
+                {
+                    WorkoutId = dbwo.WorkoutId,
+                    Created = dbwo.Created,
+                    AverageOneRm = dbwo.AverageOneRm,
+                    TotalVolume = dbwo.TotalVolume,
+                    RickFactor = dbwo.RickFactor,
+                    Sets =  _context.Sets
+                        .Where(s => s.Workout.WorkoutId == dbwo.WorkoutId)
+                        .Select(s => new SetResponse
+                    {
+                        Exercise = s.Exercise,
+                        OneRm = s.OneRm,
+                        Reps = s.Reps,
+                        SetId = s.SetId,
+                        Volume = s.Volume,
+                        Weight = s.Weight
+                    })
+                        .ToList()
+                };
+                
+                allResponseWorkouts.Add(workoutResponse);
+            }
+            
+            return new JsonResult(new {Data = allResponseWorkouts});
         }
     }
 }
