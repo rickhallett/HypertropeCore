@@ -7,7 +7,7 @@
             private const string Base = "/api";
 
             public const string Create = Base + "/workout";
-            public const string Show = Base + "/workout";
+            public const string ShowAll = Base + "/workout";
         }
     }
 }

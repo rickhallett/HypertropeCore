@@ -16,7 +16,7 @@ namespace HypertropeCore.Controllers
             return new JsonResult(new {Route = "CreateWorkout"});
         }
 
-        [HttpGet(ApiRoutes.Workouts.Create)]
+        [HttpGet(ApiRoutes.Workouts.ShowAll)]
         public IActionResult ShowWorkouts()
         {
             return new JsonResult(new {Route = "ShowWorkouts"});
