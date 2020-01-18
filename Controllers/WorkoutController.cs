@@ -35,7 +35,8 @@ namespace HypertropeCore.Controllers
                     Weight = rs.Weight,
                     Volume = rs.Reps * rs.Weight,
                     OneRm = rs.Weight / (1.0278 - 0.0278 * rs.Reps)
-                }).ToList()
+                }).ToList(),
+                Notes = request.Notes
             };
 
             workout.TotalVolume = workout.Sets.Select(s => s.Volume).Sum();
@@ -45,7 +46,8 @@ namespace HypertropeCore.Controllers
             await _context.Workouts.AddAsync(workout);
             var updated = await _context.SaveChangesAsync();
             
-            return new JsonResult(new {Data = workout, Updated = updated});
+            
+            return new JsonResult(new Response<WorkoutCreatedResponse>(new WorkoutCreatedResponse{WorkoutId = workout.WorkoutId}));
         }
 
         [HttpGet(ApiRoutes.Workouts.ShowAll)]
@@ -65,22 +67,28 @@ namespace HypertropeCore.Controllers
                     RickFactor = dbwo.RickFactor,
                     Sets =  _context.Sets
                         .Where(s => s.Workout.WorkoutId == dbwo.WorkoutId)
-                        .Select(s => new SetResponse
-                    {
-                        Exercise = s.Exercise,
-                        OneRm = s.OneRm,
-                        Reps = s.Reps,
-                        SetId = s.SetId,
-                        Volume = s.Volume,
-                        Weight = s.Weight
-                    })
-                        .ToList()
+                        .Select(s => ConstructSetResponse(s))
+                        .ToList(),
+                    Notes = dbwo.Notes
                 };
                 
                 allResponseWorkouts.Add(workoutResponse);
             }
             
-            return new JsonResult(new {Data = allResponseWorkouts});
+            return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
+        }
+
+        private static SetResponse ConstructSetResponse(Set s)
+        {
+            return new SetResponse
+            {
+                Exercise = s.Exercise,
+                OneRm = s.OneRm,
+                Reps = s.Reps,
+                SetId = s.SetId,
+                Volume = s.Volume,
+                Weight = s.Weight
+            };
         }
     }
 }

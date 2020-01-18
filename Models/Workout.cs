@@ -11,5 +11,6 @@ namespace HypertropeCore.Models
         public int TotalVolume { get; set; }
         public double AverageOneRm { get; set; }
         public double RickFactor { get; set; }
+        public string Notes { get; set; }
     }
 }

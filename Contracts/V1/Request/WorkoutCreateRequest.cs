@@ -6,5 +6,6 @@ namespace HypertropeCore.Contracts.V1.Request
     public class WorkoutCreateRequest
     {
         public List<Set> Sets { get; set; }
+        public string Notes { get; set; }
     }
 }
