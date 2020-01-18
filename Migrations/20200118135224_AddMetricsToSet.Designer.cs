@@ -4,14 +4,16 @@ using HypertropeCore.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HypertropeCore.Migrations
 {
     [DbContext(typeof(HypertropeCoreContext))]
-    partial class HypertropeCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200118135224_AddMetricsToSet")]
+    partial class AddMetricsToSet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

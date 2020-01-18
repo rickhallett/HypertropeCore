@@ -4,14 +4,16 @@ using HypertropeCore.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HypertropeCore.Migrations
 {
     [DbContext(typeof(HypertropeCoreContext))]
-    partial class HypertropeCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200118135040_ChangeExerciseTypeToString")]
+    partial class ChangeExerciseTypeToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,9 +47,6 @@ namespace HypertropeCore.Migrations
                     b.Property<string>("Exercise")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("MetricsMetricId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Reps")
                         .HasColumnType("int");
 
@@ -58,8 +57,6 @@ namespace HypertropeCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("SetId");
-
-                    b.HasIndex("MetricsMetricId");
 
                     b.HasIndex("WorkoutId");
 
@@ -82,10 +79,6 @@ namespace HypertropeCore.Migrations
 
             modelBuilder.Entity("HypertropeCore.Models.Set", b =>
                 {
-                    b.HasOne("HypertropeCore.Models.Metric", "Metrics")
-                        .WithMany()
-                        .HasForeignKey("MetricsMetricId");
-
                     b.HasOne("HypertropeCore.Models.Workout", null)
                         .WithMany("Sets")
                         .HasForeignKey("WorkoutId");

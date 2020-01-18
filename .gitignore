@@ -9,3 +9,4 @@ obj/
 .idea/.idea.HypertropeCore/.idea/projectSettingsUpdater.xml
 .idea/.idea.HypertropeCore/.idea/vcs.xml
 .idea/.idea.HypertropeCore/riderModule.iml
+*.xml

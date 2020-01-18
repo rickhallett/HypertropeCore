@@ -4,14 +4,16 @@ using HypertropeCore.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HypertropeCore.Migrations
 {
     [DbContext(typeof(HypertropeCoreContext))]
-    partial class HypertropeCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200118130914_AddWorkoutsTable")]
+    partial class AddWorkoutsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,10 +30,15 @@ namespace HypertropeCore.Migrations
                     b.Property<int>("OneRm")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("SetId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Volume")
                         .HasColumnType("int");
 
                     b.HasKey("MetricId");
+
+                    b.HasIndex("SetId");
 
                     b.ToTable("Metrics");
                 });
@@ -42,11 +49,8 @@ namespace HypertropeCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Exercise")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("MetricsMetricId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Exercise")
+                        .HasColumnType("int");
 
                     b.Property<int>("Reps")
                         .HasColumnType("int");
@@ -58,8 +62,6 @@ namespace HypertropeCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("SetId");
-
-                    b.HasIndex("MetricsMetricId");
 
                     b.HasIndex("WorkoutId");
 
@@ -80,12 +82,15 @@ namespace HypertropeCore.Migrations
                     b.ToTable("Workouts");
                 });
 
+            modelBuilder.Entity("HypertropeCore.Models.Metric", b =>
+                {
+                    b.HasOne("HypertropeCore.Models.Set", "Set")
+                        .WithMany()
+                        .HasForeignKey("SetId");
+                });
+
             modelBuilder.Entity("HypertropeCore.Models.Set", b =>
                 {
-                    b.HasOne("HypertropeCore.Models.Metric", "Metrics")
-                        .WithMany()
-                        .HasForeignKey("MetricsMetricId");
-
                     b.HasOne("HypertropeCore.Models.Workout", null)
                         .WithMany("Sets")
                         .HasForeignKey("WorkoutId");
