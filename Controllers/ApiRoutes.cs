@@ -14,7 +14,8 @@
         {
             private const string Base = "api";
 
-            public const string ShowAll = Base + "exercises";
+            public const string Create = Base + "/exercise";
+            public const string ShowAll = Base + "/exercise";
         }
     }
 }
