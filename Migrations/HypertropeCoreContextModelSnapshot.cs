@@ -19,23 +19,6 @@ namespace HypertropeCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("HypertropeCore.Models.Metric", b =>
-                {
-                    b.Property<Guid>("MetricId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("OneRm")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Volume")
-                        .HasColumnType("int");
-
-                    b.HasKey("MetricId");
-
-                    b.ToTable("Metrics");
-                });
-
             modelBuilder.Entity("HypertropeCore.Models.Set", b =>
                 {
                     b.Property<Guid>("SetId")
@@ -45,10 +28,13 @@ namespace HypertropeCore.Migrations
                     b.Property<string>("Exercise")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("MetricsMetricId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<double>("OneRm")
+                        .HasColumnType("float");
 
                     b.Property<int>("Reps")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Volume")
                         .HasColumnType("int");
 
                     b.Property<int>("Weight")
@@ -58,8 +44,6 @@ namespace HypertropeCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("SetId");
-
-                    b.HasIndex("MetricsMetricId");
 
                     b.HasIndex("WorkoutId");
 
@@ -72,8 +56,17 @@ namespace HypertropeCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<double>("AverageOneRm")
+                        .HasColumnType("float");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
+
+                    b.Property<double>("RickFactor")
+                        .HasColumnType("float");
+
+                    b.Property<int>("TotalVolume")
+                        .HasColumnType("int");
 
                     b.HasKey("WorkoutId");
 
@@ -82,10 +75,6 @@ namespace HypertropeCore.Migrations
 
             modelBuilder.Entity("HypertropeCore.Models.Set", b =>
                 {
-                    b.HasOne("HypertropeCore.Models.Metric", "Metrics")
-                        .WithMany()
-                        .HasForeignKey("MetricsMetricId");
-
                     b.HasOne("HypertropeCore.Models.Workout", null)
                         .WithMany("Sets")
                         .HasForeignKey("WorkoutId");

@@ -12,6 +12,6 @@ namespace HypertropeCore.Models
         public double AverageOneRm { get; set; }
         
         // IndexVal == 'work per set per rep'
-        public int IndexVal { get; set; }
+        public double RickFactor { get; set; }
     }
 }
