@@ -5,8 +5,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="LoggerService\LoggerService.csproj" />
+      <_ContentIncludedByDefault Remove="LoggerService\bin\Debug\netcoreapp3.1\LoggerService.deps.json" />
+      <_ContentIncludedByDefault Remove="LoggerService\obj\LoggerService.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="LoggerService\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="LoggerService\obj\project.packagespec.json" />
     </ItemGroup>
-
 
 </Project>
