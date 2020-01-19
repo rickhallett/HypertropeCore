@@ -8,6 +8,9 @@
 
             public const string Create = Base + "/workout";
             public const string ShowAll = Base + "/workout";
+            public const string ListByExercise = Base + "/workout/grouped/exercise";
+            public const string ListByDate = Base + "/workout/grouped/date";
+            public const string ListPb = Base + "/workout/pbs";
         }
 
         public static class Exercises

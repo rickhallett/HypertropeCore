@@ -23,7 +23,52 @@ namespace HypertropeCore.Controllers
         [HttpPost(ApiRoutes.Workouts.Create)]
         public async Task<IActionResult> CreateWorkout([FromBody] WorkoutCreateRequest request)
         {
-            var workout = new Workout
+            var workout = ConstructNewWorkout(request);
+
+            await _context.Workouts.AddAsync(workout);
+            var updated = await _context.SaveChangesAsync();
+            
+            return new JsonResult(new Response<WorkoutCreatedResponse>(new WorkoutCreatedResponse{WorkoutId = workout.WorkoutId}));
+        }
+
+        [HttpGet(ApiRoutes.Workouts.ShowAll)]
+        public IActionResult ShowWorkouts()
+        {
+            var allResponseWorkouts = HydrateAllWorkoutsWithSets();
+
+            return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
+        }
+        
+        [HttpGet(ApiRoutes.Workouts.ListByExercise)]
+        public IActionResult ListByExercise()
+        {
+            var allResponseWorkouts = HydrateAllWorkoutsWithSets();
+
+            return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
+        }
+        
+        [HttpGet(ApiRoutes.Workouts.ListByDate)]
+        public IActionResult ListByDate()
+        {
+            var allResponseWorkouts = HydrateAllWorkoutsWithSets();
+
+            return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
+        }
+        
+        [HttpGet(ApiRoutes.Workouts.ListPb)]
+        public IActionResult ListPb()
+        {
+            var allDbWorkouts = _context.Workouts.ToList();
+            var allResponseWorkouts = new List<WorkoutResponse>();
+
+            
+            
+            return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
+        }
+
+        private Workout ConstructNewWorkout(WorkoutCreateRequest request)
+        {
+            var workout =  new Workout
             {
                 WorkoutId = Guid.NewGuid(),
                 Created = DateTime.Now,
@@ -42,15 +87,10 @@ namespace HypertropeCore.Controllers
             workout.TotalVolume = workout.Sets.Select(s => s.Volume).Sum();
             workout.AverageOneRm = workout.Sets.Select(s => s.OneRm).Sum() / workout.Sets.Count;
 
-            await _context.Workouts.AddAsync(workout);
-            var updated = await _context.SaveChangesAsync();
-            
-            
-            return new JsonResult(new Response<WorkoutCreatedResponse>(new WorkoutCreatedResponse{WorkoutId = workout.WorkoutId}));
+            return workout;
         }
 
-        [HttpGet(ApiRoutes.Workouts.ShowAll)]
-        public IActionResult ShowWorkouts()
+        private List<WorkoutResponse> HydrateAllWorkoutsWithSets()
         {
             var allDbWorkouts = _context.Workouts.ToList();
             var allResponseWorkouts = new List<WorkoutResponse>();
@@ -72,8 +112,8 @@ namespace HypertropeCore.Controllers
                 
                 allResponseWorkouts.Add(workoutResponse);
             }
-            
-            return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
+
+            return allResponseWorkouts;
         }
 
         private static SetResponse ConstructSetResponse(Set s)
