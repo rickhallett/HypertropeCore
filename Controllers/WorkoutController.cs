@@ -83,6 +83,13 @@ namespace HypertropeCore.Controllers
         public IActionResult ListByDate()
         {
             var allResponseWorkouts = HydrateAllWorkoutsWithSets();
+            
+            allResponseWorkouts.Sort(delegate(WorkoutResponse a, WorkoutResponse b)
+            {
+                if (a.Created > b.Created) return 1;
+                else if (a.Created < b.Created) return -1;
+                else return 0;
+            });
 
             return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
         }
