@@ -1,3 +1,4 @@
+using System;
 using HypertropeCore.Context;
 using HypertropeCore.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -23,8 +24,18 @@ namespace HypertropeCore
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionConfig = Configuration.GetSection("ConnectionString");
-            services.AddDbContext<HypertropeCoreContext>(options => 
-                options.UseSqlServer(connectionConfig.Value));
+
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            {
+                services.AddDbContext<HypertropeCoreContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ProdDB")));
+            }
+            else
+            {
+                services.AddDbContext<HypertropeCoreContext>(options => 
+                    options.UseSqlServer(Configuration.GetConnectionString("DevDB")));
+            }
+                
             
             services.ConfigureCors();
             services.ConfigureIISIntegration();

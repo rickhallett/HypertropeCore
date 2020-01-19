@@ -2,7 +2,7 @@ bin/
 obj/
 /packages/
 appsettings.Production.json
-
+azuregit.json
 
 .idea/.gitignore
 .idea/.idea.HypertropeCore/.idea/contentModel.xml
