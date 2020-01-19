@@ -39,6 +39,12 @@ namespace HypertropeCore.Controllers
             return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
         }
         
+        [HttpGet(ApiRoutes.Workouts.Count)]
+        public IActionResult Count()
+        {
+            return new JsonResult(new {WorkoutCount = _context.Workouts.Count()});
+        }
+        
         [HttpGet(ApiRoutes.Workouts.ListByExercise)]
         public IActionResult ListByExercise()
         {

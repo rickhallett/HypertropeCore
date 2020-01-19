@@ -11,7 +11,6 @@ namespace HypertropeCore.Contracts.V1.Response
         public List<SetResponse> Sets { get; set; }
         public int TotalVolume { get; set; }
         public double AverageOneRm { get; set; }
-        public double RickFactor { get; set; }
         public string Notes { get; set; }
     }
 }

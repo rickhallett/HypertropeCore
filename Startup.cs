@@ -22,8 +22,9 @@ namespace HypertropeCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionConfig = Configuration.GetSection("ConnectionString");
             services.AddDbContext<HypertropeCoreContext>(options => 
-                options.UseSqlServer(@"Server=.;Database=HypertropeCoreDev;Trusted_Connection=True;"));
+                options.UseSqlServer(connectionConfig.Value));
             
             services.ConfigureCors();
             services.ConfigureIISIntegration();
