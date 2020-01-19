@@ -10,5 +10,6 @@ namespace HypertropeCore.Contracts.V1.Response
         public int Reps { get; set; }
         public int Volume { get; set; }
         public double OneRm { get; set; }
+        public DateTime Created { get; set; }
     }
 }

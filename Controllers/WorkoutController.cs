@@ -66,9 +66,19 @@ namespace HypertropeCore.Controllers
                 }
             }
 
+            foreach (var exercise in groupedResponse.Exercises)
+            {
+                exercise.Sets.Sort(delegate(SetResponse a, SetResponse b)
+                {
+                    if (a.Created > b.Created) return 1;
+                    else if (a.Created < b.Created) return -1;
+                    else return 0;
+                });
+            }
+
             return new JsonResult(new Response<GroupedByExerciseWorkoutResponse>(groupedResponse));
         }
-        
+
         [HttpGet(ApiRoutes.Workouts.ListByDate)]
         public IActionResult ListByDate()
         {
@@ -147,7 +157,8 @@ namespace HypertropeCore.Controllers
                 Reps = s.Reps,
                 SetId = s.SetId,
                 Volume = s.Volume,
-                Weight = s.Weight
+                Weight = s.Weight,
+                Created = s.Workout.Created
             };
         }
     }
