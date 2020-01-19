@@ -19,8 +19,7 @@ namespace HypertropeCore
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionConfig = Configuration.GetSection("ConnectionString");
@@ -35,7 +34,8 @@ namespace HypertropeCore
                 services.AddDbContext<HypertropeCoreContext>(options => 
                     options.UseSqlServer(Configuration.GetConnectionString("DevDB")));
             }
-                
+            
+            services.BuildServiceProvider().GetService<HypertropeCoreContext>().Database.Migrate();
             
             services.ConfigureCors();
             services.ConfigureIISIntegration();
