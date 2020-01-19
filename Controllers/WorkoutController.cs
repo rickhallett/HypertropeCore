@@ -44,7 +44,29 @@ namespace HypertropeCore.Controllers
         {
             var allResponseWorkouts = HydrateAllWorkoutsWithSets();
 
-            return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
+            var availableExercises = _context.Exercises.ToList();
+            
+            var groupedResponse = new GroupedByExerciseWorkoutResponse();
+
+            foreach (var exercise in availableExercises)
+            {
+                groupedResponse.Exercises.Add(new ExerciseGroup
+                {
+                    Name = exercise.Name
+                });
+            }
+
+            foreach (var workout in allResponseWorkouts)
+            {
+                foreach (var set in workout.Sets)
+                {
+                    var name = set.Exercise.ToLowerInvariant();
+                    var group = groupedResponse.Exercises.Find(eg => eg.Name.ToLowerInvariant() == name);
+                    group?.Sets.Add(set);
+                }
+            }
+
+            return new JsonResult(new Response<GroupedByExerciseWorkoutResponse>(groupedResponse));
         }
         
         [HttpGet(ApiRoutes.Workouts.ListByDate)]
