@@ -35,6 +35,7 @@ namespace HypertropeCore
                     options.UseSqlServer(Configuration.GetConnectionString("DevDB")));
             }
             
+            // TODO: use DI here
             services.BuildServiceProvider().GetService<HypertropeCoreContext>().Database.Migrate();
             
             services.ConfigureCors();
