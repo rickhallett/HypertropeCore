@@ -41,7 +41,6 @@ namespace HypertropeCore.Controllers
 
             workout.TotalVolume = workout.Sets.Select(s => s.Volume).Sum();
             workout.AverageOneRm = workout.Sets.Select(s => s.OneRm).Sum() / workout.Sets.Count;
-            workout.RickFactor = (double)workout.TotalVolume / workout.Sets.Count / workout.Sets.Select(s => s.Reps).Sum();
 
             await _context.Workouts.AddAsync(workout);
             var updated = await _context.SaveChangesAsync();
@@ -64,7 +63,6 @@ namespace HypertropeCore.Controllers
                     Created = dbwo.Created,
                     AverageOneRm = dbwo.AverageOneRm,
                     TotalVolume = dbwo.TotalVolume,
-                    RickFactor = dbwo.RickFactor,
                     Sets =  _context.Sets
                         .Where(s => s.Workout.WorkoutId == dbwo.WorkoutId)
                         .Select(s => ConstructSetResponse(s))

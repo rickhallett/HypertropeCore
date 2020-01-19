@@ -25,7 +25,8 @@ namespace HypertropeCore.Controllers
             var newExercise = new Exercise
             {
                 ExerciseId = Guid.NewGuid(),
-                Name = request.Name
+                Name = request.Name,
+                Abbreviation = request.Abbrev
             };
 
             await _context.Exercises.AddAsync(newExercise);

@@ -4,14 +4,16 @@ using HypertropeCore.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HypertropeCore.Migrations
 {
     [DbContext(typeof(HypertropeCoreContext))]
-    partial class HypertropeCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200118183352_AddQuotes")]
+    partial class AddQuotes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +26,6 @@ namespace HypertropeCore.Migrations
                     b.Property<Guid>("ExerciseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Abbreviation")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -101,6 +100,9 @@ namespace HypertropeCore.Migrations
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("RickFactor")
+                        .HasColumnType("float");
 
                     b.Property<int>("TotalVolume")
                         .HasColumnType("int");

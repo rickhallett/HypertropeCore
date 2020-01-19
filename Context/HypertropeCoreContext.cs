@@ -7,7 +7,8 @@ namespace HypertropeCore.Context
     {
         public DbSet<Set> Sets { get; set; }
         public DbSet<Workout> Workouts { get; set; }
-        public DbSet<Exercise> Exercises { get; set; }
+        public DbSet<Exercise> Exercises { get; set; }    
+        public DbSet<Quote> Quotes { get; set; }   
 
         public HypertropeCoreContext(DbContextOptions<HypertropeCoreContext> options) : base(options)
         {
