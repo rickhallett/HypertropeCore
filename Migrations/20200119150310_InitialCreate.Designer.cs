@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HypertropeCore.Migrations
 {
     [DbContext(typeof(HypertropeCoreContext))]
-    [Migration("20200118183352_AddQuotes")]
-    partial class AddQuotes
+    [Migration("20200119150310_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,6 +26,9 @@ namespace HypertropeCore.Migrations
                     b.Property<Guid>("ExerciseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Abbreviation")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -100,9 +103,6 @@ namespace HypertropeCore.Migrations
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("RickFactor")
-                        .HasColumnType("float");
 
                     b.Property<int>("TotalVolume")
                         .HasColumnType("int");

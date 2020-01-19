@@ -20,7 +20,7 @@ namespace HypertropeCore.Controllers
         }
 
         [HttpPost(ApiRoutes.Quotes.Create)]
-        public async Task<IActionResult> CreateExercise([FromBody] CreateQuoteRequest request)
+        public async Task<IActionResult> CreateQuote([FromBody] CreateQuoteRequest request)
         {
             var newQuote = new Quote
             {

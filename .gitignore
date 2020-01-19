@@ -1,6 +1,9 @@
 bin/
 obj/
 /packages/
+appsettings.Production.json
+
+
 .idea/.gitignore
 .idea/.idea.HypertropeCore/.idea/contentModel.xml
 .idea/.idea.HypertropeCore/.idea/encodings.xml
