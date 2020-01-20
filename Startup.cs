@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using HypertropeCore.Context;
 using HypertropeCore.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +46,8 @@ namespace HypertropeCore
             services.ConfigureIdentity();
             
             services.AddControllers();
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
