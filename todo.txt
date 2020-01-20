@@ -1,5 +1,7 @@
 UI
-    Auth
+    Auth - $q.notify using ModelState
+    Upgrade auth to use Vuex rather than sessionStorage
+    Refactor all state management to Vuex for practice
     Mobile view only
     Workout abbreviation needs to be explained
     CI/CD
