@@ -2,6 +2,8 @@ using System;
 using AutoMapper;
 using HypertropeCore.Context;
 using HypertropeCore.Extensions;
+using HypertropeCore.Installers;
+using HypertropeCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -23,31 +25,9 @@ namespace HypertropeCore
         
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionConfig = Configuration.GetSection("ConnectionString");
-
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-            {
-                services.AddDbContext<HypertropeCoreContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ProdDB")));
-            }
-            else
-            {
-                services.AddDbContext<HypertropeCoreContext>(options => 
-                    options.UseSqlServer(Configuration.GetConnectionString("DevDB")));
-            }
+            services.InstallServicesInAssembly(Configuration);
             
-            // TODO: use DI here
-            services.BuildServiceProvider().GetService<HypertropeCoreContext>().Database.Migrate();
             
-            services.ConfigureCors();
-            services.ConfigureIISIntegration();
-
-            services.AddAuthentication();
-            services.ConfigureIdentity();
-            
-            services.AddControllers();
-
-            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

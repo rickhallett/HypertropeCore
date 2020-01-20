@@ -6,6 +6,7 @@
         public static class Auth
         {
             public const string RegisterUser = Base + "/auth/register";
+            public const string Login = Base + "/auth/login";
         }
         
         public static class Workouts

@@ -5,10 +5,12 @@ using HypertropeCore.Context;
 using HypertropeCore.Contracts.V1.Request;
 using HypertropeCore.Contracts.V1.Response;
 using HypertropeCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HypertropeCore.Controllers
 {
+    [Authorize]
     [ApiController]
     public class QuoteController : Controller
     {

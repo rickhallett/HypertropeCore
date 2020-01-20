@@ -2,7 +2,8 @@
 using AutoMapper;
 using HypertropeCore.DataTransferObjects;
 using HypertropeCore.Models;
- using Microsoft.AspNetCore.Identity;
+using HypertropeCore.Services;
+using Microsoft.AspNetCore.Identity;
  using Microsoft.AspNetCore.Mvc;
  
  namespace HypertropeCore.Controllers
@@ -12,11 +13,24 @@ using HypertropeCore.Models;
      {
          private readonly IMapper _mapper;
          private readonly UserManager<User> _userManager;
+         private readonly IAuthenticationManager _authManager;
 
-         public AuthenticationController(UserManager<User> userManager, IMapper mapper)
+         public AuthenticationController(UserManager<User> userManager, IMapper mapper, IAuthenticationManager authenticationManager)
          {
              _userManager = userManager;
              _mapper = mapper;
+             _authManager = authenticationManager;
+         }
+
+         [HttpPost(ApiRoutes.Auth.Login)]
+         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
+         {
+             if (!await _authManager.ValidateUser(user))
+             {
+                 return Unauthorized();
+             }
+
+             return Ok(new {Token = await _authManager.CreateToken()});
          }
 
          [HttpPost(ApiRoutes.Auth.RegisterUser)]

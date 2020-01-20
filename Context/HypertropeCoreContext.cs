@@ -21,6 +21,7 @@ namespace HypertropeCore.Context
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new QuoteConfiguration());
         }
     }
 }
