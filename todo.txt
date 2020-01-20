@@ -1,0 +1,19 @@
+UI
+    Auth
+    Mobile view only
+    Workout abbreviation needs to be explained
+    CI/CD
+    Create a workout timer, rest timer
+    User settings page
+    
+API
+    Auth
+    CI/CD
+    Docker
+    Caching
+    Email service
+    Admin notifications
+    User email notifications, summaries
+    Quote settings: let users add to private or public quote repositories, and view similar
+    
+    Use IEntityTypeConfiguration<Quote> to add two seed quotes for new databases, or make the UI independent on this data being present

@@ -40,6 +40,10 @@ namespace HypertropeCore
             
             services.ConfigureCors();
             services.ConfigureIISIntegration();
+
+            services.AddAuthentication();
+            services.ConfigureIdentity();
+            
             services.AddControllers();
         }
 
@@ -65,6 +69,7 @@ namespace HypertropeCore
             
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

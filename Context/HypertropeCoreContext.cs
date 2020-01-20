@@ -1,9 +1,10 @@
 ﻿using HypertropeCore.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HypertropeCore.Context
 {
-    public class HypertropeCoreContext : DbContext
+    public class HypertropeCoreContext : IdentityDbContext<User>
     {
         public DbSet<Set> Sets { get; set; }
         public DbSet<Workout> Workouts { get; set; }
@@ -13,6 +14,13 @@ namespace HypertropeCore.Context
         public HypertropeCoreContext(DbContextOptions<HypertropeCoreContext> options) : base(options)
         {
             
+        }
+        
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new RoleConfiguration());
         }
     }
 }
