@@ -11,9 +11,7 @@ namespace HypertropeCore.Installers
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            var jwtSettings = new JwtSettings();
-            configuration.Bind(nameof(jwtSettings), jwtSettings);
-            services.AddSingleton(jwtSettings);
+            services.ConfigureJwt(configuration);
             
             services.ConfigureCors();
             services.ConfigureIISIntegration();
