@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using HypertropeCore.Context;
 using HypertropeCore.Extensions;
+using HypertropeCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -48,6 +49,8 @@ namespace HypertropeCore
             services.AddControllers();
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<IWorkoutService, WorkoutService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
