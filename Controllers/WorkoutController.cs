@@ -7,10 +7,12 @@ using HypertropeCore.Contracts.V1.Request;
 using HypertropeCore.Contracts.V1.Response;
 using HypertropeCore.Models;
 using HypertropeCore.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HypertropeCore.Controllers
 {
+    [Authorize]
     [ApiController]
     public class WorkoutController : Controller
     {

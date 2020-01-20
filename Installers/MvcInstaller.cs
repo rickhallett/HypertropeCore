@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.IdentityModel.Tokens.Jwt;
+using AutoMapper;
 using HypertropeCore.Extensions;
 using HypertropeCore.Options;
 using HypertropeCore.Services;
@@ -24,6 +25,7 @@ namespace HypertropeCore.Installers
             services.AddAutoMapper(typeof(Startup));
 
             services.AddScoped<IWorkoutService, WorkoutService>();
+            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         }
     }
 }
