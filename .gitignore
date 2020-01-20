@@ -4,6 +4,8 @@ obj/
 appsettings.Production.json
 azuregit.json
 
+.idea/
+
 .idea/.gitignore
 .idea/.idea.HypertropeCore/.idea/contentModel.xml
 .idea/.idea.HypertropeCore/.idea/encodings.xml
