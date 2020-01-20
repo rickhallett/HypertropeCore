@@ -1,10 +1,15 @@
 UI
-    Auth
+    If no server connection, render a placeholder page, with the option to try the server again in x minutes or on click
+    Auth. Login field validation
     Mobile view only
     Workout abbreviation needs to be explained
     CI/CD
     Create a workout timer, rest timer
     User settings page
+    Routing: does it make sense to have some routes and sub routes?
+    Use <transition> in combination with animate.css and custom rules to add animations and transitions to all the app. Think futuristic machine with sliding panels
+    User <transition> to replace all setTimeout emulations
+    Go through the app and find the aspects that can be refactored into clean components
     
 API
     Auth
@@ -12,6 +17,8 @@ API
     Docker
     Caching
     Email service
+    Forgot password, password reset service
+    Create some kind of failsafe to prevent people hitting the register end point and making a superadmin
     Admin notifications
     User email notifications, summaries
     Quote settings: let users add to private or public quote repositories, and view similar
