@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using HypertropeCore.DataTransferObjects;
+using HypertropeCore.Domain;
 using HypertropeCore.Models;
 using HypertropeCore.Options;
 using Microsoft.AspNetCore.Identity;
@@ -56,7 +57,7 @@ namespace HypertropeCore.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, _user.UserName)
+                new Claim("id", _user.Id)
             };
 
             var roles = await _userManager.GetRolesAsync(_user);

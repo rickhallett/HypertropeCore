@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using HypertropeCore.Contracts.V1.Request;
 using HypertropeCore.Contracts.V1.Response;
+using Microsoft.AspNetCore.Http;
 
 namespace HypertropeCore.Services
 {
@@ -9,12 +10,12 @@ namespace HypertropeCore.Services
     {
         Task<int> GetWorkoutCount();
         
-        Task<bool> AddWorkout(WorkoutCreateRequest workoutCreateRequest);
+        Task<bool> AddWorkout(WorkoutCreateRequest workoutCreateRequest, string userId);
 
-        Task<List<WorkoutResponse>> FetchAllWorkouts();
+        Task<List<WorkoutResponse>> FetchAllUserWorkouts(string userId);
 
-        Task<List<WorkoutResponse>> FetchAllWorkoutsDateSorted();
+        Task<List<WorkoutResponse>> FetchAllUserWorkoutsDateSorted(string userId);
 
-        Task<GroupedByExerciseWorkoutResponse> FetchWorkoutsByExercise();
+        Task<GroupedByExerciseWorkoutResponse> FetchAllUserWorkoutsByExercise(string userId);
     }
 }

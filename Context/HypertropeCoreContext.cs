@@ -1,4 +1,5 @@
-﻿using HypertropeCore.Models;
+﻿using HypertropeCore.Domain;
+using HypertropeCore.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

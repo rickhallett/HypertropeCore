@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace HypertropeCore.Models
+namespace HypertropeCore.Domain
 {
     public class User : IdentityUser
     {

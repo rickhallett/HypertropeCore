@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace HypertropeCore.Models
+namespace HypertropeCore.Domain
 {
     public class Set
     {
@@ -13,7 +12,7 @@ namespace HypertropeCore.Models
         public int Volume { get; set; }
         public double OneRm { get; set; }
         
-        [ForeignKey(nameof(Models.Workout.WorkoutId))]
+        [ForeignKey(nameof(Domain.Workout.WorkoutId))]
         public Workout Workout { get; set; }
     }
 }

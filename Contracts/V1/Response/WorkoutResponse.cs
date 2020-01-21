@@ -7,6 +7,7 @@ namespace HypertropeCore.Contracts.V1.Response
     public class WorkoutResponse
     {
         public Guid WorkoutId { get; set; }
+        public Guid UserId { get; set; }
         public DateTime Created { get; set; }
         public List<SetResponse> Sets { get; set; }
         public int TotalVolume { get; set; }

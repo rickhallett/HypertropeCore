@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using HypertropeCore.DataTransferObjects;
+using HypertropeCore.Domain;
 using HypertropeCore.Models;
 using HypertropeCore.Services;
 using Microsoft.AspNetCore.Identity;

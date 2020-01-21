@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HypertropeCore.Domain;
 using HypertropeCore.Models;
 
 namespace HypertropeCore.Contracts.V1.Request

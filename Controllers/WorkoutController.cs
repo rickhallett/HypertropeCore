@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HypertropeCore.Context;
 using HypertropeCore.Contracts.V1.Request;
 using HypertropeCore.Contracts.V1.Response;
+using HypertropeCore.Extensions;
 using HypertropeCore.Models;
 using HypertropeCore.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -26,7 +27,7 @@ namespace HypertropeCore.Controllers
         [HttpPost(ApiRoutes.Workouts.Create)]
         public async Task<IActionResult> CreateWorkout([FromBody] WorkoutCreateRequest request)
         {
-            var created = await _workoutService.AddWorkout(request);
+            var created = await _workoutService.AddWorkout(request, HttpContext.GetUserId());
             if (!created)
             {
                 return StatusCode(500);
@@ -38,7 +39,8 @@ namespace HypertropeCore.Controllers
         [HttpGet(ApiRoutes.Workouts.ShowAll)]
         public async Task<IActionResult> ShowWorkouts()
         {
-            var allResponseWorkouts = await _workoutService.FetchAllWorkouts();
+            var h = HttpContext.User;
+            var allResponseWorkouts = await _workoutService.FetchAllUserWorkouts(HttpContext.GetUserId());
 
             return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
         }
@@ -52,7 +54,7 @@ namespace HypertropeCore.Controllers
         [HttpGet(ApiRoutes.Workouts.ListByExercise)]
         public async Task<IActionResult> ListByExercise()
         {
-            var groupedResponse = await _workoutService.FetchWorkoutsByExercise();
+            var groupedResponse = await _workoutService.FetchAllUserWorkoutsByExercise(HttpContext.GetUserId());
             
             return new JsonResult(new Response<GroupedByExerciseWorkoutResponse>(groupedResponse));
         }
@@ -60,7 +62,7 @@ namespace HypertropeCore.Controllers
         [HttpGet(ApiRoutes.Workouts.ListByDate)]
         public async Task<IActionResult> ListByDate()
         {
-            var allResponseWorkouts = await _workoutService.FetchAllWorkoutsDateSorted();
+            var allResponseWorkouts = await _workoutService.FetchAllUserWorkoutsDateSorted(HttpContext.GetUserId());
 
             return new JsonResult(new Response<List<WorkoutResponse>>(allResponseWorkouts));
         }

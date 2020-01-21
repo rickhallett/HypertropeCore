@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HypertropeCore.DataTransferObjects;
+using HypertropeCore.Domain;
 
 namespace HypertropeCore.Models
 {

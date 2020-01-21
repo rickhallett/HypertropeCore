@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HypertropeCore.Models
+namespace HypertropeCore.Domain
 {
     public class Exercise
     {

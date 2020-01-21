@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using HypertropeCore.Context;
+using HypertropeCore.Domain;
 using HypertropeCore.Models;
 using HypertropeCore.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

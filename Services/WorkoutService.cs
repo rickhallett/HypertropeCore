@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HypertropeCore.Context;
 using HypertropeCore.Contracts.V1.Request;
 using HypertropeCore.Contracts.V1.Response;
+using HypertropeCore.Domain;
 using HypertropeCore.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,9 +25,27 @@ namespace HypertropeCore.Services
             return _context.Workouts.CountAsync();
         }
 
-        public async Task<bool> AddWorkout(WorkoutCreateRequest workoutCreateRequest)
+        public async Task<bool> UserOwnsWorkout(Guid workoutId, string userId)
+        {
+            var workout = await _context.Workouts.AsNoTracking().SingleOrDefaultAsync(w => w.WorkoutId == workoutId);
+
+            if (workout == null)
+            {
+                return false;
+            }
+
+            if (userId != workout.UserId.ToString())
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task<bool> AddWorkout(WorkoutCreateRequest workoutCreateRequest, string userId)
         {
             var workout = ConstructNewWorkout(workoutCreateRequest);
+            workout.UserId = Guid.Parse(userId);
             
             await _context.Workouts.AddAsync(workout);
             var updated = await _context.SaveChangesAsync();
@@ -34,14 +53,14 @@ namespace HypertropeCore.Services
             return updated > 0;
         }
 
-        public async Task<List<WorkoutResponse>> FetchAllWorkouts()
+        public async Task<List<WorkoutResponse>> FetchAllUserWorkouts(string userId)
         {
-            return await HydrateAllWorkoutsWithSets();
+            return await HydrateWorkoutsWithSets(userId);
         }
 
-        public async Task<List<WorkoutResponse>> FetchAllWorkoutsDateSorted()
+        public async Task<List<WorkoutResponse>> FetchAllUserWorkoutsDateSorted(string userId)
         {
-            var allResponseWorkouts = await HydrateAllWorkoutsWithSets();
+            var allResponseWorkouts = await HydrateWorkoutsWithSets(userId);
             
             allResponseWorkouts.Sort(delegate(WorkoutResponse a, WorkoutResponse b)
             {
@@ -53,9 +72,9 @@ namespace HypertropeCore.Services
             return allResponseWorkouts;
         }
 
-        public async Task<GroupedByExerciseWorkoutResponse> FetchWorkoutsByExercise()
+        public async Task<GroupedByExerciseWorkoutResponse> FetchAllUserWorkoutsByExercise(string userId)
         {
-            var allResponseWorkouts = await HydrateAllWorkoutsWithSets();
+            var allResponseWorkouts = await HydrateWorkoutsWithSets(userId);
 
             var availableExercises = _context.Exercises.ToList();
             
@@ -116,9 +135,9 @@ namespace HypertropeCore.Services
             return workout;
         }
         
-        private async Task<List<WorkoutResponse>> HydrateAllWorkoutsWithSets()
+        private async Task<List<WorkoutResponse>> HydrateWorkoutsWithSets(string userId)
         {
-            var allDbWorkouts = await _context.Workouts.ToListAsync();
+            var allDbWorkouts = await _context.Workouts.Where(w => w.UserId.ToString() == userId).ToListAsync();
             var allResponseWorkouts = new List<WorkoutResponse>();
 
             foreach (var dbwo in allDbWorkouts)
@@ -126,6 +145,7 @@ namespace HypertropeCore.Services
                 var workoutResponse = new WorkoutResponse
                 {
                     WorkoutId = dbwo.WorkoutId,
+                    UserId = Guid.Parse(userId),
                     Created = dbwo.Created,
                     AverageOneRm = dbwo.AverageOneRm,
                     TotalVolume = dbwo.TotalVolume,

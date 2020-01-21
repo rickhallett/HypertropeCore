@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using HypertropeCore.Models;
+using Microsoft.AspNetCore.Identity;
 
-namespace HypertropeCore.Models
+namespace HypertropeCore.Domain
 {
     public class Workout
     {
         public Guid WorkoutId { get; set; }
+        
+        public Guid UserId { get; set; }
         public DateTime Created { get; set; }
         public List<Set> Sets { get; set; }
         public int TotalVolume { get; set; }
