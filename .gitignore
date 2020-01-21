@@ -1,7 +1,7 @@
 bin/
 obj/
 /packages/
-appsettings.Production.json
+#appsettings.Production.json
 azuregit.json
 
 .idea/
