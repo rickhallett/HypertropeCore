@@ -15,7 +15,7 @@ UI
     Go through the app and find the aspects that can be refactored into clean components
     
 API
-    Auth
+    Auth - all responses need to be json so that axios can handle them...?
     CI/CD
     Docker
     Caching
