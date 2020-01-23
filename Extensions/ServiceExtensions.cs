@@ -53,6 +53,8 @@ namespace HypertropeCore.Extensions
             configuration.Bind(nameof(jwtSettings), jwtSettings);
             services.AddSingleton(jwtSettings);
 
+           jwtSettings.SecretKey = configuration["JWT-KEY"];
+
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
