@@ -11,6 +11,7 @@ namespace HypertropeCore.Domain
         public int Reps { get; set; }
         public int Volume { get; set; }
         public double OneRm { get; set; }
+        public bool Tracking { get; set; }
         
         [ForeignKey(nameof(Domain.Workout.WorkoutId))]
         public Workout Workout { get; set; }
