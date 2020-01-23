@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HypertropeCore.Controllers
 {
-    [Authorize]
     [ApiController]
     public class QuoteController : Controller
     {
@@ -35,8 +34,8 @@ namespace HypertropeCore.Controllers
 
             await _context.Quotes.AddAsync(newQuote);
             await _context.SaveChangesAsync();
-            
-            return new JsonResult(new Response<Quote>(newQuote));
+
+            return Created("created", newQuote);
         }
         
         [HttpGet(ApiRoutes.Quotes.ShowAll)]

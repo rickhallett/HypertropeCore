@@ -7,6 +7,7 @@
         {
             public const string RegisterUser = Base + "/auth/register";
             public const string Login = Base + "/auth/login";
+            public const string Ping = Base + "/ping";
         }
         
         public static class Workouts

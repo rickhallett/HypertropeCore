@@ -1,10 +1,23 @@
+App concept
+    Biggest problem with most workout tracking is people mistake volume or time at gym for improvement. It is, but it isnt always progressive load.
+    How can we track progressive load? A quick way in is to look at est 1RM. If this stays the same week to week, there is no real progressive load
+
+    Tracks improvements in estimated 1RM
+    
+    Out of a workout, sets can be marked as warm ups. These are not included in tracking.
+    
+    Tracks improvements in volume...? For those users who care more about the amount of work they are doing...?
+    
+    When exercises are added, the type must be specified. Bodyweight/DB/BB. Only DB/BB exercises of under 15 reps near failure can be sensibly tracked.
+    
+
 UI
     Auth - $q.notify using ModelState
     Upgrade auth to use Vuex rather than sessionStorage
     Refactor all state management to Vuex for practice
     If no server connection, render a placeholder page, with the option to try the server again in x minutes or on click
     Auth. Login field validation
-    Mobile view only
+    *Mobile view only
     Workout abbreviation needs to be explained
     CI/CD
     Create a workout timer, rest timer

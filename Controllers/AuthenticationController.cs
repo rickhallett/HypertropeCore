@@ -23,6 +23,12 @@ using Microsoft.AspNetCore.Identity;
              _authManager = authenticationManager;
          }
 
+         [HttpPost(ApiRoutes.Auth.Ping)]
+         public IActionResult Ping()
+         {
+             return Ok();
+         }
+
          [HttpPost(ApiRoutes.Auth.Login)]
          public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
          {
