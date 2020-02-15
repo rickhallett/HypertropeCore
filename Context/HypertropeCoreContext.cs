@@ -23,6 +23,7 @@ namespace HypertropeCore.Context
 
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new QuoteConfiguration());
+            builder.ApplyConfiguration(new ExerciseConfiguration());
         }
     }
 }

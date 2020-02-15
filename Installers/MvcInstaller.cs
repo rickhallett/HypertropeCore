@@ -26,8 +26,7 @@ namespace HypertropeCore.Installers
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddScoped<IWorkoutService, WorkoutService>();
-            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+            
         }
     }
 }

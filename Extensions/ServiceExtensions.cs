@@ -1,9 +1,11 @@
 ﻿using System.Reflection;
 using System.Text;
+using Contract;
 using HypertropeCore.Context;
 using HypertropeCore.Domain;
 using HypertropeCore.Models;
 using HypertropeCore.Options;
+using LoggerService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -107,6 +109,11 @@ namespace HypertropeCore.Extensions
                     }
                 });
             });
+        }
+
+        public static void ConfigureLoggerService(this IServiceCollection services)
+        {
+            services.AddScoped<ILoggerManager, LoggerManager>();
         }
     }
 }

@@ -34,6 +34,56 @@ namespace HypertropeCore.Migrations
                     b.HasKey("ExerciseId");
 
                     b.ToTable("Exercises");
+
+                    b.HasData(
+                        new
+                        {
+                            ExerciseId = new Guid("2e1449dc-b751-4bed-8dd2-4cf3fa186586"),
+                            Abbreviation = "sq",
+                            Name = "Squat"
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("70aa3e53-9581-4c9d-8502-9cfed90786a3"),
+                            Abbreviation = "bp",
+                            Name = "Bench Press"
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("70f3fa12-cdac-4efb-8d35-773c511e5df0"),
+                            Abbreviation = "mp",
+                            Name = "Military Press"
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("32e7c0e8-a5f2-4fc8-bdb9-32ad8f5c70ac"),
+                            Abbreviation = "dl",
+                            Name = "Deadlift"
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("e85442ca-6143-4a87-a87d-62d7c962308e"),
+                            Abbreviation = "lr",
+                            Name = "Leg Raise"
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("a8cde4b5-343c-4881-bee3-1db3067e7feb"),
+                            Abbreviation = "ur",
+                            Name = "Upright Row"
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("3b847791-2042-49c1-bec7-3fd99efef349"),
+                            Abbreviation = "pu",
+                            Name = "Pull up"
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("6a62969b-2790-4d74-b1d5-2cb75bd59d3f"),
+                            Abbreviation = "cu",
+                            Name = "Chin Up"
+                        });
                 });
 
             modelBuilder.Entity("HypertropeCore.Domain.Quote", b =>
@@ -58,17 +108,17 @@ namespace HypertropeCore.Migrations
                     b.HasData(
                         new
                         {
-                            QuoteId = new Guid("7d182257-998d-40b7-87be-c073744ed334"),
+                            QuoteId = new Guid("6df3b21a-aaa8-43f3-9a62-ba0f244bc521"),
                             Author = "Bruce Lee",
                             Body = "I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.",
-                            CreatedAt = new DateTime(2020, 2, 14, 18, 1, 19, 625, DateTimeKind.Local).AddTicks(2230)
+                            CreatedAt = new DateTime(2020, 2, 15, 18, 56, 45, 267, DateTimeKind.Local).AddTicks(4250)
                         },
                         new
                         {
-                            QuoteId = new Guid("96caf171-46a0-433a-9476-c41f0a730b4c"),
+                            QuoteId = new Guid("ca6f4cb0-3d66-4041-b4f6-4208598f7571"),
                             Author = "Bruce Lee",
                             Body = "The successful warrior is the average man, with laser-like focus",
-                            CreatedAt = new DateTime(2020, 2, 14, 18, 1, 19, 634, DateTimeKind.Local).AddTicks(380)
+                            CreatedAt = new DateTime(2020, 2, 15, 18, 56, 45, 267, DateTimeKind.Local).AddTicks(5940)
                         });
                 });
 
@@ -230,15 +280,15 @@ namespace HypertropeCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "40076261-ee89-4937-901e-57c38ab13422",
-                            ConcurrencyStamp = "4aa5cd80-1ff1-4480-9533-8e5bec61d386",
+                            Id = "134a8a1d-1846-4055-8e26-3dcf1d11d422",
+                            ConcurrencyStamp = "572260f1-2197-4a05-aed8-e4bbd8d50470",
                             Name = "Superadmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = "8194e126-6cd7-4791-8839-51adb5a9d277",
-                            ConcurrencyStamp = "699628d9-c31d-4f5a-be39-a045a91a9b0a",
+                            Id = "1fcfc242-53a1-403e-9139-052a8af7ca40",
+                            ConcurrencyStamp = "b5ee3b3f-35ee-45df-95bb-810978e9a555",
                             Name = "User",
                             NormalizedName = "USER"
                         });

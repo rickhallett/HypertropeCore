@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
+using Contract;
 using HypertropeCore.DataTransferObjects;
 using HypertropeCore.Domain;
 using HypertropeCore.Models;
@@ -15,17 +16,21 @@ using Microsoft.AspNetCore.Identity;
          private readonly IMapper _mapper;
          private readonly UserManager<User> _userManager;
          private readonly IAuthenticationManager _authManager;
+         private readonly ILoggerManager _loggerManager;
 
-         public AuthenticationController(UserManager<User> userManager, IMapper mapper, IAuthenticationManager authenticationManager)
+         public AuthenticationController(UserManager<User> userManager, IMapper mapper, 
+             IAuthenticationManager authenticationManager, ILoggerManager loggerManager)
          {
              _userManager = userManager;
              _mapper = mapper;
              _authManager = authenticationManager;
+             _loggerManager = loggerManager;
          }
 
          [HttpPost(ApiRoutes.Auth.Ping)]
          public IActionResult Ping()
          {
+             _loggerManager.LogInfo("The server was pinged");
              return Ok();
          }
 
