@@ -17,11 +17,14 @@ namespace HypertropeCore.Installers
             }
             else
             {
-                services.AddDbContext<HypertropeCoreContext>(options => 
-                    options.UseSqlServer(configuration.GetConnectionString("DevDB")));
+                // services.AddDbContext<HypertropeCoreContext>(options => 
+                //     options.UseSqlServer(configuration.GetConnectionString("DevDB")));
+
+                services.AddDbContext<HypertropeCoreContext>(options =>
+                    options.UseNpgsql(configuration.GetConnectionString("HypertropeNPQDev")));
             }
             
-            services.BuildServiceProvider().GetService<HypertropeCoreContext>().Database.Migrate();
+            //services.BuildServiceProvider().GetService<HypertropeCoreContext>().Database.Migrate();
         }
     }
 }

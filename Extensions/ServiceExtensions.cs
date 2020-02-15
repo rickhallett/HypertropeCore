@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 using HypertropeCore.Context;
 using HypertropeCore.Domain;
 using HypertropeCore.Models;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace HypertropeCore.Extensions
 {
@@ -33,7 +35,7 @@ namespace HypertropeCore.Extensions
 
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            var builder = services.AddIdentityCore<User>(o =>
+            IdentityBuilder builder = services.AddIdentityCore<User>(o =>
             {
                 o.Password.RequireDigit = true;
                 o.Password.RequireLowercase = false;
@@ -53,7 +55,7 @@ namespace HypertropeCore.Extensions
             configuration.Bind(nameof(jwtSettings), jwtSettings);
             services.AddSingleton(jwtSettings);
 
-           jwtSettings.SecretKey = configuration["JWT-KEY"];
+            jwtSettings.SecretKey = configuration["JWT-KEY"];
 
             services.AddAuthentication(options =>
                 {
@@ -73,6 +75,38 @@ namespace HypertropeCore.Extensions
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
                     };
                 });
+        }
+
+        public static void ConfigureSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(s =>
+            {
+                s.SwaggerDoc("v1", new OpenApiInfo {Title = "HypertropeCoreAPI", Version = "v1"});
+                s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+                s.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference 
+                            { 
+                                Type = ReferenceType.SecurityScheme, 
+                                Id = "Bearer" 
+                            }
+                        },
+                        new string[] {}
+
+                    }
+                });
+            });
         }
     }
 }

@@ -21,6 +21,8 @@ namespace HypertropeCore.Installers
             services.ConfigureIdentity();
             
             services.AddControllers();
+            
+            services.ConfigureSwagger();
 
             services.AddAutoMapper(typeof(Startup));
 

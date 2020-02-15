@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HypertropeCore.Migrations
 {
-    public partial class CreateIdentityTables : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,11 +50,54 @@ namespace HypertropeCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Exercises",
+                columns: table => new
+                {
+                    ExerciseId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Abbreviation = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exercises", x => x.ExerciseId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Quotes",
+                columns: table => new
+                {
+                    QuoteId = table.Column<Guid>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    Body = table.Column<string>(nullable: true),
+                    Author = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Quotes", x => x.QuoteId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Workouts",
+                columns: table => new
+                {
+                    WorkoutId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    TotalVolume = table.Column<int>(nullable: false),
+                    AverageOneRm = table.Column<double>(nullable: false),
+                    Notes = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Workouts", x => x.WorkoutId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -74,7 +118,7 @@ namespace HypertropeCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -154,6 +198,48 @@ namespace HypertropeCore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Sets",
+                columns: table => new
+                {
+                    SetId = table.Column<Guid>(nullable: false),
+                    Exercise = table.Column<string>(nullable: true),
+                    Weight = table.Column<int>(nullable: false),
+                    Reps = table.Column<int>(nullable: false),
+                    Volume = table.Column<int>(nullable: false),
+                    OneRm = table.Column<double>(nullable: false),
+                    Tracking = table.Column<bool>(nullable: false),
+                    WorkoutId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sets", x => x.SetId);
+                    table.ForeignKey(
+                        name: "FK_Sets_Workouts_WorkoutId",
+                        column: x => x.WorkoutId,
+                        principalTable: "Workouts",
+                        principalColumn: "WorkoutId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "40076261-ee89-4937-901e-57c38ab13422", "4aa5cd80-1ff1-4480-9533-8e5bec61d386", "Superadmin", "SUPERADMIN" },
+                    { "8194e126-6cd7-4791-8839-51adb5a9d277", "699628d9-c31d-4f5a-be39-a045a91a9b0a", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Quotes",
+                columns: new[] { "QuoteId", "Author", "Body", "CreatedAt" },
+                values: new object[,]
+                {
+                    { new Guid("7d182257-998d-40b7-87be-c073744ed334"), "Bruce Lee", "I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.", new DateTime(2020, 2, 14, 18, 1, 19, 625, DateTimeKind.Local).AddTicks(2230) },
+                    { new Guid("96caf171-46a0-433a-9476-c41f0a730b4c"), "Bruce Lee", "The successful warrior is the average man, with laser-like focus", new DateTime(2020, 2, 14, 18, 1, 19, 634, DateTimeKind.Local).AddTicks(380) }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -163,8 +249,7 @@ namespace HypertropeCore.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -190,8 +275,12 @@ namespace HypertropeCore.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sets_WorkoutId",
+                table: "Sets",
+                column: "WorkoutId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -212,10 +301,22 @@ namespace HypertropeCore.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Exercises");
+
+            migrationBuilder.DropTable(
+                name: "Quotes");
+
+            migrationBuilder.DropTable(
+                name: "Sets");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Workouts");
         }
     }
 }

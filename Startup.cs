@@ -29,6 +29,9 @@ namespace HypertropeCore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(s => { s.SwaggerEndpoint("/swagger/v1/swagger.json", "HypertropeCoreAPI v1"); });
             }
             else
             {

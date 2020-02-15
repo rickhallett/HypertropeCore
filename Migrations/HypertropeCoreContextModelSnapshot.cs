@@ -3,8 +3,8 @@ using System;
 using HypertropeCore.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HypertropeCore.Migrations
 {
@@ -15,21 +15,21 @@ namespace HypertropeCore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.0.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("HypertropeCore.Domain.Exercise", b =>
                 {
                     b.Property<Guid>("ExerciseId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Abbreviation")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ExerciseId");
 
@@ -40,16 +40,16 @@ namespace HypertropeCore.Migrations
                 {
                     b.Property<Guid>("QuoteId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Author")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("QuoteId");
 
@@ -58,17 +58,17 @@ namespace HypertropeCore.Migrations
                     b.HasData(
                         new
                         {
-                            QuoteId = new Guid("4aff8c4d-7184-4b66-94f0-7c87f76298ff"),
+                            QuoteId = new Guid("7d182257-998d-40b7-87be-c073744ed334"),
                             Author = "Bruce Lee",
                             Body = "I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.",
-                            CreatedAt = new DateTime(2020, 1, 23, 8, 23, 36, 216, DateTimeKind.Local).AddTicks(93)
+                            CreatedAt = new DateTime(2020, 2, 14, 18, 1, 19, 625, DateTimeKind.Local).AddTicks(2230)
                         },
                         new
                         {
-                            QuoteId = new Guid("2a9ba60c-ce52-47a9-965e-09f2080e48fb"),
+                            QuoteId = new Guid("96caf171-46a0-433a-9476-c41f0a730b4c"),
                             Author = "Bruce Lee",
                             Body = "The successful warrior is the average man, with laser-like focus",
-                            CreatedAt = new DateTime(2020, 1, 23, 8, 23, 36, 218, DateTimeKind.Local).AddTicks(5705)
+                            CreatedAt = new DateTime(2020, 2, 14, 18, 1, 19, 634, DateTimeKind.Local).AddTicks(380)
                         });
                 });
 
@@ -76,28 +76,28 @@ namespace HypertropeCore.Migrations
                 {
                     b.Property<Guid>("SetId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Exercise")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<double>("OneRm")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<int>("Reps")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Tracking")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("Volume")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("Weight")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid?>("WorkoutId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("SetId");
 
@@ -109,59 +109,59 @@ namespace HypertropeCore.Migrations
             modelBuilder.Entity("HypertropeCore.Domain.User", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -171,8 +171,7 @@ namespace HypertropeCore.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -181,22 +180,22 @@ namespace HypertropeCore.Migrations
                 {
                     b.Property<Guid>("WorkoutId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<double>("AverageOneRm")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("TotalVolume")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("WorkoutId");
 
@@ -206,41 +205,40 @@ namespace HypertropeCore.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
                         new
                         {
-                            Id = "9b60ea35-36cb-466c-9a32-d1c59149a797",
-                            ConcurrencyStamp = "7695fc2f-0439-40f5-9b46-781ef7469bcd",
+                            Id = "40076261-ee89-4937-901e-57c38ab13422",
+                            ConcurrencyStamp = "4aa5cd80-1ff1-4480-9533-8e5bec61d386",
                             Name = "Superadmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = "6bca4677-dedb-488d-b8f9-db78a6f9f1cc",
-                            ConcurrencyStamp = "1c37111a-f65c-47ca-ab59-b8f0d6c14123",
+                            Id = "8194e126-6cd7-4791-8839-51adb5a9d277",
+                            ConcurrencyStamp = "699628d9-c31d-4f5a-be39-a045a91a9b0a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -250,18 +248,18 @@ namespace HypertropeCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -274,18 +272,18 @@ namespace HypertropeCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -297,17 +295,17 @@ namespace HypertropeCore.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -319,10 +317,10 @@ namespace HypertropeCore.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -334,16 +332,16 @@ namespace HypertropeCore.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
