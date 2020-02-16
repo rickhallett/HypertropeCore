@@ -22,5 +22,8 @@ namespace HypertropeCore.Domain
         [Required(ErrorMessage = "Willingness is a required field, min = 0, max = 10")]
         [Range(0, 10)]
         public int Willingness { get; set; }
+        
+        [ForeignKey(nameof(Domain.User))]
+        public Guid UserId { get; set; }
     }
 }

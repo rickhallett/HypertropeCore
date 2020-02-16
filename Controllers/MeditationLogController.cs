@@ -7,6 +7,7 @@ using Contract;
 using HypertropeCore.DataTransferObjects.Request;
 using HypertropeCore.DataTransferObjects.Response;
 using HypertropeCore.Domain;
+using HypertropeCore.Extensions;
 using HypertropeCore.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,15 +33,6 @@ namespace HypertropeCore.Controllers
             {
                 var meditationLogs = _repositoryManager.MeditationLog.GetAllMeditationLogs();
 
-                // var meditationLogsDto = meditationLogs.Select(m => new MeditationLogResponseDto
-                // {
-                //     MeditationLogId = m.MeditationLogId,
-                //     Created = m.Created,
-                //     Notes = m.Notes,
-                //     Silence = m.Silence,
-                //     Willingness = m.Willingness
-                // }).ToList();
-
                 var meditationLogsDto = _mapper.Map<IEnumerable<MeditationLogResponseDto>>(meditationLogs);
 
                 return Ok(meditationLogsDto);
@@ -59,7 +51,9 @@ namespace HypertropeCore.Controllers
         {
             try
             {
-                _repositoryManager.MeditationLog.CreateMeditationLog(_mapper.Map<MeditationLog>(request));
+                var newMeditationLog = _mapper.Map<MeditationLog>(request);
+                newMeditationLog.UserId = Guid.Parse(HttpContext.GetUserId());
+                _repositoryManager.MeditationLog.CreateMeditationLog(newMeditationLog);
                 _repositoryManager.Save();
 
                 return Ok();
