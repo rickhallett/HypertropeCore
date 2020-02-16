@@ -5,6 +5,7 @@ using HypertropeCore.Context;
 using HypertropeCore.Domain;
 using HypertropeCore.Models;
 using HypertropeCore.Options;
+using HypertropeCore.Repository;
 using LoggerService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -111,9 +112,10 @@ namespace HypertropeCore.Extensions
             });
         }
 
-        public static void ConfigureLoggerService(this IServiceCollection services)
-        {
-            services.AddScoped<ILoggerManager, LoggerManager>();
-        }
+        public static void ConfigureLoggerService(this IServiceCollection services) => services.AddScoped<ILoggerManager, LoggerManager>();
+
+        public static void ConfigureRepositoryManager(this IServiceCollection services) =>
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+
     }
 }

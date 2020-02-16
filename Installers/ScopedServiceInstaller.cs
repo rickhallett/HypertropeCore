@@ -13,6 +13,7 @@ namespace HypertropeCore.Installers
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             
             services.ConfigureLoggerService();
+            services.ConfigureRepositoryManager();
         }
     }
 }
