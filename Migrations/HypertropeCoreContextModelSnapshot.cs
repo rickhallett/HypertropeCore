@@ -111,14 +111,14 @@ namespace HypertropeCore.Migrations
                             QuoteId = new Guid("6df3b21a-aaa8-43f3-9a62-ba0f244bc521"),
                             Author = "Bruce Lee",
                             Body = "I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.",
-                            CreatedAt = new DateTime(2020, 2, 16, 14, 38, 30, 150, DateTimeKind.Local).AddTicks(3490)
+                            CreatedAt = new DateTime(2020, 2, 16, 15, 22, 38, 857, DateTimeKind.Local).AddTicks(8280)
                         },
                         new
                         {
                             QuoteId = new Guid("ca6f4cb0-3d66-4041-b4f6-4208598f7571"),
                             Author = "Bruce Lee",
                             Body = "The successful warrior is the average man, with laser-like focus",
-                            CreatedAt = new DateTime(2020, 2, 16, 14, 38, 30, 150, DateTimeKind.Local).AddTicks(5190)
+                            CreatedAt = new DateTime(2020, 2, 16, 15, 22, 38, 857, DateTimeKind.Local).AddTicks(9970)
                         });
                 });
 
@@ -127,6 +127,9 @@ namespace HypertropeCore.Migrations
                     b.Property<Guid>("SetId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Exercise")
                         .HasColumnType("text");
@@ -137,16 +140,13 @@ namespace HypertropeCore.Migrations
                     b.Property<int>("Reps")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Tracking")
-                        .HasColumnType("boolean");
-
                     b.Property<int>("Volume")
                         .HasColumnType("integer");
 
                     b.Property<int>("Weight")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("WorkoutId")
+                    b.Property<Guid>("WorkoutId")
                         .HasColumnType("uuid");
 
                     b.HasKey("SetId");
@@ -280,15 +280,15 @@ namespace HypertropeCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c339ee3e-4d3f-4825-b640-0f9f1f2a8593",
-                            ConcurrencyStamp = "d1356190-eb01-4c6b-95a6-1e4fb4390c03",
+                            Id = "f193d7e9-2b13-4297-8dd3-850534d30fba",
+                            ConcurrencyStamp = "4e108440-3864-4159-9448-03cad76b7419",
                             Name = "Superadmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = "45e89641-b3c2-4bdb-a261-63e08f0331a0",
-                            ConcurrencyStamp = "e32423ff-171c-493a-8bc8-908b94cb21e0",
+                            Id = "93ea1739-9efa-443a-951e-8f1891a67beb",
+                            ConcurrencyStamp = "d3fdebb2-407e-42d9-a7c9-9e92419d80ac",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -400,9 +400,11 @@ namespace HypertropeCore.Migrations
 
             modelBuilder.Entity("HypertropeCore.Domain.Set", b =>
                 {
-                    b.HasOne("HypertropeCore.Domain.Workout", "Workout")
+                    b.HasOne("HypertropeCore.Domain.Workout", null)
                         .WithMany("Sets")
-                        .HasForeignKey("WorkoutId");
+                        .HasForeignKey("WorkoutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

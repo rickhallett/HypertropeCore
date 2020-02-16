@@ -119,17 +119,19 @@ namespace HypertropeCore.Services
             {
                 WorkoutId = Guid.NewGuid(),
                 Created = DateTime.Now,
-                Sets = request.Sets.Select(rs => new Set
-                {
-                    SetId = Guid.NewGuid(),
-                    Exercise = rs.Exercise,
-                    Reps = rs.Reps,
-                    Weight = rs.Weight,
-                    Volume = rs.Reps * rs.Weight,
-                    OneRm = rs.Weight / (1.0278 - 0.0278 * rs.Reps)
-                }).ToList(),
                 Notes = request.Notes
             };
+
+            workout.Sets = request.Sets.Select(rs => new Set
+            {
+                WorkoutId = workout.WorkoutId,
+                SetId = Guid.NewGuid(),
+                Exercise = rs.Exercise,
+                Reps = rs.Reps,
+                Weight = rs.Weight,
+                Volume = rs.Reps * rs.Weight,
+                OneRm = rs.Weight / (1.0278 - 0.0278 * rs.Reps)
+            }).ToList();
 
             workout.TotalVolume = workout.Sets.Select(s => s.Volume).Sum();
             workout.AverageOneRm = workout.Sets.Select(s => s.OneRm).Sum() / workout.Sets.Count;
@@ -139,7 +141,7 @@ namespace HypertropeCore.Services
         
         private async Task<List<WorkoutResponse>> HydrateWorkoutsWithSets(string userId)
         {
-            var allDbWorkouts = await _context.Workouts.Where(w => w.UserId.ToString() == userId).ToListAsync();
+            var allDbWorkouts = await _repositoryManager.Workout.FindByCondition(w => w.UserId.ToString() == userId).ToListAsync();
             var allResponseWorkouts = new List<WorkoutResponse>();
 
             foreach (var dbwo in allDbWorkouts)
@@ -151,13 +153,12 @@ namespace HypertropeCore.Services
                     Created = dbwo.Created,
                     AverageOneRm = dbwo.AverageOneRm,
                     TotalVolume = dbwo.TotalVolume,
-                    Sets =  _context.Sets
-                        .Where(s => s.Workout.WorkoutId == dbwo.WorkoutId)
+                    Sets = _repositoryManager.Set.FindByCondition(s => s.WorkoutId == dbwo.WorkoutId)
                         .Select(s => ConstructSetResponse(s))
                         .ToList(),
                     Notes = dbwo.Notes
                 };
-                
+
                 allResponseWorkouts.Add(workoutResponse);
             }
 
@@ -174,7 +175,7 @@ namespace HypertropeCore.Services
                 SetId = s.SetId,
                 Volume = s.Volume,
                 Weight = s.Weight,
-                Created = s.Workout.Created
+                Created = s.Created
             };
         }
     }

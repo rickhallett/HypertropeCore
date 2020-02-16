@@ -31,5 +31,11 @@
             public const string Create = Base + "/quote";
             public const string ShowAll = Base + "/quote";
         }
+
+        public static class MeditationLog
+        {
+            public const string Create = Base + "/meditationlog";
+            public const string ShowAll = Base + "/meditationlog";
+        }
     }
 }
