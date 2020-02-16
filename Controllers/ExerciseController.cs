@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using HypertropeCore.Context;
-using HypertropeCore.Contracts.V1.Request;
-using HypertropeCore.Contracts.V1.Response;
+using HypertropeCore.DataTransferObjects;
+using HypertropeCore.DataTransferObjects.Request;
+using HypertropeCore.DataTransferObjects.Response;
 using HypertropeCore.Domain;
 using HypertropeCore.Models;
 using Microsoft.AspNetCore.Authorization;

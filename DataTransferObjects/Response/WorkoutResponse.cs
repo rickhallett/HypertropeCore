@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using HypertropeCore.Models;
 
-namespace HypertropeCore.Contracts.V1.Response
+namespace HypertropeCore.DataTransferObjects.Response
 {
     public class WorkoutResponse
     {

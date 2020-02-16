@@ -12,30 +12,33 @@
         
         public static class Workouts
         {
-            public const string Create = Base + "/workout";
-            public const string ShowAll = Base + "/workout";
-            public const string Count = Base + "/workout/count";
-            public const string ListByExercise = Base + "/workout/grouped/exercise";
-            public const string ListByDate = Base + "/workout/grouped/date";
-            public const string ListPb = Base + "/workout/pbs";
+            public const string Create = Base + "/workouts";
+            public const string ShowAll = Base + "/workouts";
+            public const string Count = Base + "/workouts/count";
+            public const string ListByExercise = Base + "/workouts/grouped/exercise";
+            public const string ListByDate = Base + "/workouts/grouped/date";
+            public const string ListPb = Base + "/workouts/pbs";
         }
 
         public static class Exercises
         {
-            public const string Create = Base + "/exercise";
-            public const string ShowAll = Base + "/exercise";
+            public const string Create = Base + "/exercises";
+            public const string ShowAll = Base + "/exercises";
         }
         
         public static class Quotes
         {
-            public const string Create = Base + "/quote";
-            public const string ShowAll = Base + "/quote";
+            public const string Create = Base + "/quotes";
+            public const string ShowAll = Base + "/quotes";
         }
 
         public static class MeditationLog
         {
-            public const string Create = Base + "/meditationlog";
-            public const string ShowAll = Base + "/meditationlog";
+            public const string Create = Base + "/meditationlogs";
+            public const string Delete = Base + "/meditationlogs";
+            public const string Update = Base + "/meditationlogs";
+            public const string ShowAll = Base + "/meditationlogs";
+            public const string Show = Base + "/meditationlogs/{id}";
         }
     }
 }

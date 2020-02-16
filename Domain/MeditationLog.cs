@@ -10,6 +10,8 @@ namespace HypertropeCore.Domain
         [Column("MeditationLogId")]
         public Guid MeditationLogId { get; set; }
         
+        public DateTime Created { get; set; }
+        
         [Required(ErrorMessage = "Notes are a required field. This is the entire point.")]
         public string Notes { get; set; }
         

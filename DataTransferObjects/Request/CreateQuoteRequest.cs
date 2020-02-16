@@ -1,4 +1,4 @@
-﻿namespace HypertropeCore.Contracts.V1.Request
+﻿namespace HypertropeCore.DataTransferObjects.Request
 {
     public class CreateQuoteRequest
     {

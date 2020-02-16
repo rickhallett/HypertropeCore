@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using HypertropeCore.Context;
-using HypertropeCore.Contracts.V1.Request;
-using HypertropeCore.Contracts.V1.Response;
+using HypertropeCore.DataTransferObjects;
+using HypertropeCore.DataTransferObjects.Request;
+using HypertropeCore.DataTransferObjects.Response;
 using HypertropeCore.Domain;
 using HypertropeCore.Models;
 using HypertropeCore.Repository;
@@ -15,12 +16,10 @@ namespace HypertropeCore.Services
 {
     public class WorkoutService : IWorkoutService
     {
-        private readonly HypertropeCoreContext _context;
         private readonly IRepositoryManager _repositoryManager;
         
-        public WorkoutService(HypertropeCoreContext context, IRepositoryManager repositoryManager)
+        public WorkoutService(IRepositoryManager repositoryManager)
         {
-            _context = context;
             _repositoryManager = repositoryManager;
         }
 
@@ -125,6 +124,7 @@ namespace HypertropeCore.Services
             workout.Sets = request.Sets.Select(rs => new Set
             {
                 WorkoutId = workout.WorkoutId,
+                Created = DateTime.Now,
                 SetId = Guid.NewGuid(),
                 Exercise = rs.Exercise,
                 Reps = rs.Reps,

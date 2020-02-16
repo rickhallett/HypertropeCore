@@ -1,4 +1,4 @@
-﻿namespace HypertropeCore.Contracts.V1.Response
+﻿namespace HypertropeCore.DataTransferObjects.Response
 {
     public class Response<T>
     {

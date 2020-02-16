@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using HypertropeCore.Contracts.V1.Request;
-using HypertropeCore.Contracts.V1.Response;
+using HypertropeCore.DataTransferObjects;
+using HypertropeCore.DataTransferObjects.Request;
+using HypertropeCore.DataTransferObjects.Response;
 using Microsoft.AspNetCore.Http;
 
 namespace HypertropeCore.Services

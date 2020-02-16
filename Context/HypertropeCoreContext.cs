@@ -11,6 +11,9 @@ namespace HypertropeCore.Context
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<Exercise> Exercises { get; set; }    
         public DbSet<Quote> Quotes { get; set; }   
+        public DbSet<MeditationLog> MeditationLogs { get; set; }
+        public DbSet<VitalitySnapshot> VitalitySnapshots { get; set; }
+        public DbSet<FastingPeriod> FastingPeriods { get; set; }
 
         public HypertropeCoreContext(DbContextOptions<HypertropeCoreContext> options) : base(options)
         {
