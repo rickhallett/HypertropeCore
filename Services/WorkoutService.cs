@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using HypertropeCore.Context;
 using HypertropeCore.Contracts.V1.Request;
 using HypertropeCore.Contracts.V1.Response;
 using HypertropeCore.Domain;
 using HypertropeCore.Models;
+using HypertropeCore.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace HypertropeCore.Services
@@ -14,20 +16,22 @@ namespace HypertropeCore.Services
     public class WorkoutService : IWorkoutService
     {
         private readonly HypertropeCoreContext _context;
+        private readonly IRepositoryManager _repositoryManager;
         
-        public WorkoutService(HypertropeCoreContext context)
+        public WorkoutService(HypertropeCoreContext context, IRepositoryManager repositoryManager)
         {
             _context = context;
+            _repositoryManager = repositoryManager;
         }
 
         public Task<int> GetWorkoutCount()
         {
-            return _context.Workouts.CountAsync();
+            return _repositoryManager.Workout.FindAll().CountAsync();
         }
 
         public async Task<bool> UserOwnsWorkout(Guid workoutId, string userId)
         {
-            var workout = await _context.Workouts.AsNoTracking().SingleOrDefaultAsync(w => w.WorkoutId == workoutId);
+            var workout = _repositoryManager.Workout.FindByCondition(w => w.WorkoutId == workoutId).SingleOrDefault();
 
             if (workout == null)
             {
@@ -47,8 +51,8 @@ namespace HypertropeCore.Services
             var workout = ConstructNewWorkout(workoutCreateRequest);
             workout.UserId = Guid.Parse(userId);
             
-            await _context.Workouts.AddAsync(workout);
-            var updated = await _context.SaveChangesAsync();
+            _repositoryManager.Workout.Create(workout);
+            var updated = _repositoryManager.Save();
 
             return updated > 0;
         }
@@ -75,9 +79,7 @@ namespace HypertropeCore.Services
         public async Task<GroupedByExerciseWorkoutResponse> FetchAllUserWorkoutsByExercise(string userId)
         {
             var allResponseWorkouts = await HydrateWorkoutsWithSets(userId);
-
-            var availableExercises = _context.Exercises.ToList();
-            
+            var availableExercises = _repositoryManager.Exercise.FindAll();
             var groupedResponse = new GroupedByExerciseWorkoutResponse();
 
             foreach (var exercise in availableExercises)

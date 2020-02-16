@@ -10,18 +10,18 @@ namespace HypertropeCore.Repository
     {
         protected HypertropeCoreContext RepositoryContext;
 
-        public RepositoryBase(HypertropeCoreContext repositoryContext)
+        protected RepositoryBase(HypertropeCoreContext repositoryContext)
         {
             RepositoryContext = repositoryContext;
         }
         
-        public IQueryable<T> FindAll(bool trackChanges) => 
+        public IQueryable<T> FindAll(bool trackChanges = false) => 
             !trackChanges ? 
                 RepositoryContext.Set<T>()
                     .AsNoTracking() : 
                 RepositoryContext.Set<T>();
 
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges) =>
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges = false) =>
             !trackChanges ? 
                 RepositoryContext.Set<T>()
                     .Where(expression)

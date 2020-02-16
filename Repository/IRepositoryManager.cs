@@ -10,6 +10,6 @@ namespace HypertropeCore.Repository
         IVitalitySnapshotRepository VitalitySnapshot { get; }
         IMeditationLogRepository MeditationLog { get; }
         IUserRepository User { get; }
-        void Save();
+        int Save();
     }
 }

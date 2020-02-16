@@ -4,7 +4,7 @@ namespace HypertropeCore.Repository
 {
     public class RepositoryManager : IRepositoryManager
     {
-        private HypertropeCoreContext _repositoryContext;
+        private readonly HypertropeCoreContext _repositoryContext;
         private IExerciseRepository _exerciseRepository;
         private IWorkoutRepository _workoutRepository;
         private IQuoteRepository _quoteRepository;
@@ -21,6 +21,7 @@ namespace HypertropeCore.Repository
 
         public IExerciseRepository Exercise => _exerciseRepository ??= new ExerciseRepository(_repositoryContext);
         public IWorkoutRepository Workout => _workoutRepository ??= new WorkoutRepository(_repositoryContext);
+
         public IQuoteRepository Quote => _quoteRepository ??= new QuoteRepository(_repositoryContext);
         public ISetRepository Set => _setRepository ??= new SetRepository(_repositoryContext);
 
@@ -34,6 +35,6 @@ namespace HypertropeCore.Repository
             _meditationLogRepository ??= new MeditationLogRepository(_repositoryContext);
 
         public IUserRepository User => _userRepository ??= new UserRepository(_repositoryContext);
-        public void Save() => _repositoryContext.SaveChanges();
+        public int Save() => _repositoryContext.SaveChanges();
     }
 }

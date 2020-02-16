@@ -7,6 +7,7 @@ using HypertropeCore.Contracts.V1.Request;
 using HypertropeCore.Contracts.V1.Response;
 using HypertropeCore.Extensions;
 using HypertropeCore.Models;
+using HypertropeCore.Repository;
 using HypertropeCore.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

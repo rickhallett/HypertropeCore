@@ -111,14 +111,14 @@ namespace HypertropeCore.Migrations
                             QuoteId = new Guid("6df3b21a-aaa8-43f3-9a62-ba0f244bc521"),
                             Author = "Bruce Lee",
                             Body = "I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.",
-                            CreatedAt = new DateTime(2020, 2, 15, 18, 56, 45, 267, DateTimeKind.Local).AddTicks(4250)
+                            CreatedAt = new DateTime(2020, 2, 16, 14, 38, 30, 150, DateTimeKind.Local).AddTicks(3490)
                         },
                         new
                         {
                             QuoteId = new Guid("ca6f4cb0-3d66-4041-b4f6-4208598f7571"),
                             Author = "Bruce Lee",
                             Body = "The successful warrior is the average man, with laser-like focus",
-                            CreatedAt = new DateTime(2020, 2, 15, 18, 56, 45, 267, DateTimeKind.Local).AddTicks(5940)
+                            CreatedAt = new DateTime(2020, 2, 16, 14, 38, 30, 150, DateTimeKind.Local).AddTicks(5190)
                         });
                 });
 
@@ -280,15 +280,15 @@ namespace HypertropeCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "134a8a1d-1846-4055-8e26-3dcf1d11d422",
-                            ConcurrencyStamp = "572260f1-2197-4a05-aed8-e4bbd8d50470",
+                            Id = "c339ee3e-4d3f-4825-b640-0f9f1f2a8593",
+                            ConcurrencyStamp = "d1356190-eb01-4c6b-95a6-1e4fb4390c03",
                             Name = "Superadmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = "1fcfc242-53a1-403e-9139-052a8af7ca40",
-                            ConcurrencyStamp = "b5ee3b3f-35ee-45df-95bb-810978e9a555",
+                            Id = "45e89641-b3c2-4bdb-a261-63e08f0331a0",
+                            ConcurrencyStamp = "e32423ff-171c-493a-8bc8-908b94cb21e0",
                             Name = "User",
                             NormalizedName = "USER"
                         });
