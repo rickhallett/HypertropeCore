@@ -37,6 +37,20 @@ namespace HypertropeCore.Controllers
             return Ok(meditationLogsDto);
         }
 
+        [HttpGet(ApiRoutes.MeditationLog.Show)]
+        public IActionResult GetMeditationLog([FromRoute] Guid id)
+        {
+            var meditationLog = _repositoryManager.MeditationLog.GetMeditationLog(id);
+            if (meditationLog == null)
+            {
+                _logger.LogInfo($"Meditation log with id {id} not found");
+                return NotFound();
+            }
+
+            var meditationDto = _mapper.Map<MeditationLogResponseDto>(meditationLog);
+            return Ok(meditationDto);
+        }
+
         [HttpPost(ApiRoutes.MeditationLog.Create)]
         public IActionResult CreateMeditationLog([FromBody] CreateMeditationLogDto request)
         {

@@ -3,15 +3,17 @@ using System;
 using HypertropeCore.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HypertropeCore.Migrations
 {
     [DbContext(typeof(HypertropeCoreContext))]
-    partial class HypertropeCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200217181122_NavigationalQuotesToQuoteCategory")]
+    partial class NavigationalQuotesToQuoteCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,7 +167,7 @@ namespace HypertropeCore.Migrations
                             QuoteId = new Guid("6df3b21a-aaa8-43f3-9a62-ba0f244bc521"),
                             Author = "Bruce Lee",
                             Body = "I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.",
-                            CreatedAt = new DateTime(2020, 2, 17, 18, 13, 24, 485, DateTimeKind.Local).AddTicks(8040),
+                            CreatedAt = new DateTime(2020, 2, 17, 18, 11, 19, 980, DateTimeKind.Local).AddTicks(7480),
                             QuoteCategoryId = new Guid("a00701ef-e319-4912-a10c-a2dfe5f53711")
                         },
                         new
@@ -173,7 +175,7 @@ namespace HypertropeCore.Migrations
                             QuoteId = new Guid("ca6f4cb0-3d66-4041-b4f6-4208598f7571"),
                             Author = "Bruce Lee",
                             Body = "The successful warrior is the average man, with laser-like focus",
-                            CreatedAt = new DateTime(2020, 2, 17, 18, 13, 24, 486, DateTimeKind.Local).AddTicks(120),
+                            CreatedAt = new DateTime(2020, 2, 17, 18, 11, 19, 981, DateTimeKind.Local).AddTicks(160),
                             QuoteCategoryId = new Guid("a00701ef-e319-4912-a10c-a2dfe5f53711")
                         });
                 });
@@ -190,18 +192,6 @@ namespace HypertropeCore.Migrations
                     b.HasKey("QuoteCategoryId");
 
                     b.ToTable("QuoteCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            QuoteCategoryId = new Guid("a00701ef-e319-4912-a10c-a2dfe5f53711"),
-                            Name = "Motivational"
-                        },
-                        new
-                        {
-                            QuoteCategoryId = new Guid("c5e344c7-ec21-4a75-bcc8-46ff9c638f42"),
-                            Name = "Profound"
-                        });
                 });
 
             modelBuilder.Entity("HypertropeCore.Domain.Set", b =>
@@ -392,15 +382,15 @@ namespace HypertropeCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8c0560c1-0608-4d03-998f-358ea605c1ff",
-                            ConcurrencyStamp = "fce10f3d-9f67-4f69-aca3-5f5e9d3b9a66",
+                            Id = "35815486-38d6-4af0-927c-5bcf1f3439c5",
+                            ConcurrencyStamp = "03c96baa-57b6-4f7d-bdf3-a35bbdf3dba5",
                             Name = "Superadmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = "7b53fb08-e28e-4f3d-977b-7836141af512",
-                            ConcurrencyStamp = "fd6a9c50-5318-4596-bc94-0e5d5e43d126",
+                            Id = "083f87b8-3742-400b-bcfd-78e35555c1e1",
+                            ConcurrencyStamp = "e24ac6e7-9e51-4404-b5b6-a2f8bc73c2c7",
                             Name = "User",
                             NormalizedName = "USER"
                         });

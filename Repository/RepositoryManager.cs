@@ -8,6 +8,7 @@ namespace HypertropeCore.Repository
         private IExerciseRepository _exerciseRepository;
         private IWorkoutRepository _workoutRepository;
         private IQuoteRepository _quoteRepository;
+        private IQuoteCategoryRepository _quoteCategoryRepository;
         private ISetRepository _setRepository;
         private IFastingPeriodRepository _fastingPeriodRepository;
         private IVitalitySnapshotRepository _vitalitySnapshotRepository;
@@ -23,6 +24,10 @@ namespace HypertropeCore.Repository
         public IWorkoutRepository Workout => _workoutRepository ??= new WorkoutRepository(_repositoryContext);
 
         public IQuoteRepository Quote => _quoteRepository ??= new QuoteRepository(_repositoryContext);
+
+        public IQuoteCategoryRepository QuoteCategory =>
+            _quoteCategoryRepository ??= new QuoteCategoryRepository(_repositoryContext);
+        
         public ISetRepository Set => _setRepository ??= new SetRepository(_repositoryContext);
 
         public IFastingPeriodRepository FastingPeriod =>

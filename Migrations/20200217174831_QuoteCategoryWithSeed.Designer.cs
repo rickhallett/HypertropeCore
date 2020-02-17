@@ -3,15 +3,17 @@ using System;
 using HypertropeCore.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HypertropeCore.Migrations
 {
     [DbContext(typeof(HypertropeCoreContext))]
-    partial class HypertropeCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200217174831_QuoteCategoryWithSeed")]
+    partial class QuoteCategoryWithSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,7 +167,7 @@ namespace HypertropeCore.Migrations
                             QuoteId = new Guid("6df3b21a-aaa8-43f3-9a62-ba0f244bc521"),
                             Author = "Bruce Lee",
                             Body = "I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.",
-                            CreatedAt = new DateTime(2020, 2, 17, 18, 13, 24, 485, DateTimeKind.Local).AddTicks(8040),
+                            CreatedAt = new DateTime(2020, 2, 17, 17, 48, 29, 289, DateTimeKind.Local).AddTicks(2070),
                             QuoteCategoryId = new Guid("a00701ef-e319-4912-a10c-a2dfe5f53711")
                         },
                         new
@@ -173,7 +175,7 @@ namespace HypertropeCore.Migrations
                             QuoteId = new Guid("ca6f4cb0-3d66-4041-b4f6-4208598f7571"),
                             Author = "Bruce Lee",
                             Body = "The successful warrior is the average man, with laser-like focus",
-                            CreatedAt = new DateTime(2020, 2, 17, 18, 13, 24, 486, DateTimeKind.Local).AddTicks(120),
+                            CreatedAt = new DateTime(2020, 2, 17, 17, 48, 29, 289, DateTimeKind.Local).AddTicks(4180),
                             QuoteCategoryId = new Guid("a00701ef-e319-4912-a10c-a2dfe5f53711")
                         });
                 });
@@ -190,18 +192,6 @@ namespace HypertropeCore.Migrations
                     b.HasKey("QuoteCategoryId");
 
                     b.ToTable("QuoteCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            QuoteCategoryId = new Guid("a00701ef-e319-4912-a10c-a2dfe5f53711"),
-                            Name = "Motivational"
-                        },
-                        new
-                        {
-                            QuoteCategoryId = new Guid("c5e344c7-ec21-4a75-bcc8-46ff9c638f42"),
-                            Name = "Profound"
-                        });
                 });
 
             modelBuilder.Entity("HypertropeCore.Domain.Set", b =>
@@ -392,15 +382,15 @@ namespace HypertropeCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8c0560c1-0608-4d03-998f-358ea605c1ff",
-                            ConcurrencyStamp = "fce10f3d-9f67-4f69-aca3-5f5e9d3b9a66",
+                            Id = "5ed0c694-edd4-4f0f-b126-c4a0ba733836",
+                            ConcurrencyStamp = "cf425481-9abd-4b13-9125-b5a5d5075c72",
                             Name = "Superadmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = "7b53fb08-e28e-4f3d-977b-7836141af512",
-                            ConcurrencyStamp = "fd6a9c50-5318-4596-bc94-0e5d5e43d126",
+                            Id = "38ed5e70-d274-4249-b932-5773f0a7d0d6",
+                            ConcurrencyStamp = "9072d0d3-29a3-40dd-8bc6-46e2ee38bdfe",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -513,7 +503,7 @@ namespace HypertropeCore.Migrations
             modelBuilder.Entity("HypertropeCore.Domain.Quote", b =>
                 {
                     b.HasOne("HypertropeCore.Domain.QuoteCategory", "QuoteCategory")
-                        .WithMany("Quotes")
+                        .WithMany()
                         .HasForeignKey("QuoteCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

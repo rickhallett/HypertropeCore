@@ -6,6 +6,9 @@ azuregit.json
 
 .idea/
 
+log/internallog.txt
+log/*_logfile.txt
+
 .idea/.gitignore
 .idea/.idea.HypertropeCore/.idea/contentModel.xml
 .idea/.idea.HypertropeCore/.idea/encodings.xml

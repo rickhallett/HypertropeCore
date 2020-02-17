@@ -32,6 +32,15 @@
             public const string ShowAll = Base + "/quotes";
         }
 
+        public static class QuoteCategories
+        {
+            public const string Create = Base + "/quotecategories";
+            public const string Delete = Base + "/quotecategories/{id}";
+            public const string Update = Base + "/quotecategories{id}";
+            public const string ShowAll = Base + "/quotecategories";
+            public const string GetByName = Base + "/quotecategories/{name}";
+        }
+
         public static class MeditationLog
         {
             public const string Create = Base + "/meditationlogs";

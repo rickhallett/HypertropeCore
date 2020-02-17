@@ -5,6 +5,7 @@ namespace HypertropeCore.Repository
         IExerciseRepository Exercise { get; }
         IWorkoutRepository Workout { get; }
         IQuoteRepository Quote { get; }
+        IQuoteCategoryRepository QuoteCategory { get; }
         ISetRepository Set { get; }
         IFastingPeriodRepository FastingPeriod { get; }
         IVitalitySnapshotRepository VitalitySnapshot { get; }
